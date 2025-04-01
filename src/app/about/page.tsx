@@ -44,7 +44,7 @@ export default function AboutPage() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="md:order-1 flex-grow"
               >
-                <h2 className="text-2xl font-bold mb-4 text-cgpa-blue">Hello, I'm Oluwaseun</h2>
+                <h2 className="text-2xl font-bold mb-4 text-cgpa-blue">Oluwaseyi Emmanuel</h2>
                 <p className="mb-4 text-gray-700 dark:text-gray-300">
                   Passionate Software Engineer and Aerospace Engineering student with a love for building tools
                   that solve real-world problems.
