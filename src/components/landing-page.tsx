@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { ChevronRight, Upload, PenLine, Calculator, ArrowRight, Info } from "lucide-react"
+import { ChevronRight, Upload, PenLine, Calculator, ChevronDown, ArrowRight, Info } from "lucide-react"
 import { useInView } from "react-intersection-observer"
 import Link from "next/link"
 
@@ -213,6 +213,15 @@ export default function LandingPage() {
               </p>
             </motion.div>
           </div>
+
+          <motion.div
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.5 }}
+          >
+            <ChevronDown className="h-8 w-8 animate-bounce" />
+          </motion.div>
         </div>
       </section>
 
@@ -552,15 +561,15 @@ export default function LandingPage() {
                       </svg>
                     </div>
                     <div>
-                      <CardTitle>Sarah Johnson</CardTitle>
-                      <CardDescription>Computer Science Student</CardDescription>
+                      <CardTitle>Omobayo Stephen</CardTitle>
+                      <CardDescription>Aerospace Engineering</CardDescription>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600 dark:text-gray-400">
                     "This tool helped me track my progress and plan my remaining semesters effectively. I was able to
-                    improve my CGPA from 3.2 to 3.8 in just two semesters!"
+                    improve my CGPA from 4.6 to 4.79 in just two semesters!"
                   </p>
                 </CardContent>
               </Card>
@@ -592,8 +601,8 @@ export default function LandingPage() {
                       </svg>
                     </div>
                     <div>
-                      <CardTitle>Michael Chen</CardTitle>
-                      <CardDescription>Engineering Student</CardDescription>
+                      <CardTitle>Shatin Taiwo</CardTitle>
+                      <CardDescription>Chemical Engineering Student</CardDescription>
                     </div>
                   </div>
                 </CardHeader>
@@ -632,7 +641,7 @@ export default function LandingPage() {
                       </svg>
                     </div>
                     <div>
-                      <CardTitle>Olivia Martinez</CardTitle>
+                      <CardTitle>Olivia Chukwudi</CardTitle>
                       <CardDescription>Business Student</CardDescription>
                     </div>
                   </div>

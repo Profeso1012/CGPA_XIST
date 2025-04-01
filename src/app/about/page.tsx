@@ -32,7 +32,7 @@ export default function AboutPage() {
                 <div className="rounded-full overflow-hidden shadow-xl w-24 h-24 md:w-32 md:h-32 mx-auto md:mx-0">
                   <img
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Snapchat-833623666.jpg-3bnXBFoALsPQUWz6OjC5QwdfJd0H4u.jpeg"
-                    alt="Oluwaseun - CGPA Analyzer Developer"
+                    alt="Emmanuel - CGPA Analyzer Developer"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -46,7 +46,7 @@ export default function AboutPage() {
               >
                 <h2 className="text-2xl font-bold mb-4 text-cgpa-blue">Hello, I'm Oluwaseun</h2>
                 <p className="mb-4 text-gray-700 dark:text-gray-300">
-                  I'm a passionate Software Engineer and Aerospace Engineering student with a love for building tools
+                  Passionate Software Engineer and Aerospace Engineering student with a love for building tools
                   that solve real-world problems.
                 </p>
                 <p className="mb-4 text-gray-700 dark:text-gray-300">
@@ -56,39 +56,39 @@ export default function AboutPage() {
                 </p>
                 <p className="mb-6 text-gray-700 dark:text-gray-300">
                   When I'm not coding or studying, I enjoy exploring new technologies, contributing to open-source
-                  projects, and mentoring aspiring developers.
+                  projects, and sleeping:).
                 </p>
 
                 <div className="space-y-3">
                   <h3 className="font-semibold text-cgpa-gold">Connect with me:</h3>
                   <div className="flex flex-wrap gap-3">
                     <Button variant="outline" size="sm" asChild className="gap-2">
-                      <Link href="https://github.com/yourusername" target="_blank">
+                      <Link href="https://github.com/Profeso1012" target="_blank">
                         <Github size={16} /> GitHub
                       </Link>
                     </Button>
                     <Button variant="outline" size="sm" asChild className="gap-2">
-                      <Link href="https://linkedin.com/in/yourusername" target="_blank">
+                      <Link href="https://www.linkedin.com/in/oluwaseyi-orngu-699840289/" target="_blank">
                         <Linkedin size={16} /> LinkedIn
                       </Link>
                     </Button>
                     <Button variant="outline" size="sm" asChild className="gap-2">
-                      <Link href="https://twitter.com/yourusername" target="_blank">
+                      <Link href="https://x.com/OluwaseyiO55725" target="_blank">
                         <Twitter size={16} /> Twitter
                       </Link>
                     </Button>
                     <Button variant="outline" size="sm" asChild className="gap-2">
-                      <Link href="https://instagram.com/yourusername" target="_blank">
+                      <Link href="https://instagram.com/Profeso1012" target="_blank">
                         <Instagram size={16} /> Instagram
                       </Link>
                     </Button>
                     <Button variant="outline" size="sm" asChild className="gap-2">
-                      <Link href="mailto:your.email@example.com">
+                      <Link href="mailto:itzairso204@gmail.com">
                         <Mail size={16} /> Email Me
                       </Link>
                     </Button>
                     <Button variant="outline" size="sm" asChild className="gap-2">
-                      <Link href="tel:+1234567890">
+                      <Link href="tel:+2348148879935">
                         <Phone size={16} /> WhatsApp
                       </Link>
                     </Button>
