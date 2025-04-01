@@ -59,10 +59,10 @@
     "vaul": "^0.9.6",
     "zod": "^3.24.1",
     "@emotion/is-prop-valid": "latest",
-    "framer-motion": "latest",
+    "pdfjs-dist": "latest",
     "uuid": "latest",
-    "react-intersection-observer": "latest",
-    "pdfjs-dist": "latest"
+    "framer-motion": "latest",
+    "react-intersection-observer": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

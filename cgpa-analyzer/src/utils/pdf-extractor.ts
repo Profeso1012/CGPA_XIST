@@ -4,57 +4,30 @@ import * as pdfjsLib from "pdfjs-dist"
 import { extractTranscriptDataWithLLM } from "./llm-api"
 
 // Set up PDF.js worker
-// Remove this line as we're already setting it in pdf-init.ts
-// pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
 
 // This function extracts data from a PDF transcript
 export async function extractDataFromPDF(file: File): Promise<SemesterData[]> {
   try {
-    console.log("Starting PDF extraction process...")
-
-    // Check if worker is initialized
-    if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
-      console.warn("PDF.js worker not initialized, initializing now...")
-      const pdfJsVersion = pdfjsLib.version || "3.11.174"
-      pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfJsVersion}/pdf.worker.min.js`
-    }
-
     // Read the file as ArrayBuffer
     const arrayBuffer = await file.arrayBuffer()
     const typedArray = new Uint8Array(arrayBuffer)
 
-    console.log("Loading PDF document...")
-
-    // Load the PDF document with better error handling
-    let pdf
-    try {
-      pdf = await pdfjsLib.getDocument({ data: typedArray }).promise
-      console.log(`PDF loaded successfully with ${pdf.numPages} pages`)
-    } catch (pdfError) {
-      console.error("Error loading PDF:", pdfError)
-      console.warn("Falling back to mock data due to PDF loading error")
-      return getMockTranscriptData()
-    }
-
+    // Load the PDF document
+    const pdf = await pdfjsLib.getDocument({ data: typedArray }).promise
     let extractedText = ""
 
     // Extract text from all pages
     for (let i = 1; i <= pdf.numPages; i++) {
-      try {
-        const page = await pdf.getPage(i)
-        const textContent = await page.getTextContent()
-        extractedText += textContent.items.map((item: any) => item.str).join(" ") + "\n"
-        console.log(`Extracted text from page ${i}`)
-      } catch (pageError) {
-        console.error(`Error extracting text from page ${i}:`, pageError)
-      }
+      const page = await pdf.getPage(i)
+      const textContent = await page.getTextContent()
+      extractedText += textContent.items.map((item: any) => item.str).join(" ") + "\n"
     }
 
     console.log("Extracted text from PDF:", extractedText.substring(0, 500) + "...")
 
     // Use LLM to extract structured data from the text
     try {
-      console.log("Attempting to extract data using LLM...")
       const llmExtractedData = await extractTranscriptDataWithLLM(extractedText)
 
       // If we got valid data from the LLM, return it

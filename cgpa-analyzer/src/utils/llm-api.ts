@@ -60,67 +60,58 @@ export async function extractTranscriptDataWithLLM(pdfText: string): Promise<Sem
     `
 
     // Make the API request
-    console.log("Making API request to LLM service...")
-    try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: "llama-3-70b-instruct", // Adjust based on available models
-          messages: [
-            {
-              role: "system",
-              content: "You are a helpful assistant that extracts structured data from academic transcripts.",
-            },
-            {
-              role: "user",
-              content: prompt,
-            },
-          ],
-          temperature: 0.1, // Low temperature for more deterministic outputs
-          max_tokens: 2000,
-        }),
-      })
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "llama-3-70b-instruct", // Adjust based on available models
+        messages: [
+          {
+            role: "system",
+            content: "You are a helpful assistant that extracts structured data from academic transcripts.",
+          },
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+        temperature: 0.1, // Low temperature for more deterministic outputs
+        max_tokens: 2000,
+      }),
+    })
 
-      if (!response.ok) {
-        const errorText = await response.text().catch(() => "No error details available")
-        console.error(`API request failed with status ${response.status}: ${errorText}`)
-        throw new Error(`API request failed with status ${response.status}: ${errorText}`)
-      }
-
-      const data = await response.json()
-      console.log("Received response from LLM service")
-
-      // Extract the LLM's response
-      const llmResponseText = data.choices[0].message.content
-
-      // Parse the JSON from the LLM response
-      // First, find the JSON object in the response (it might be surrounded by markdown code blocks)
-      const jsonMatch = llmResponseText.match(/```json\s*([\s\S]*?)\s*```/) ||
-        llmResponseText.match(/```\s*([\s\S]*?)\s*```/) || [null, llmResponseText]
-
-      const jsonString = jsonMatch[1] || llmResponseText
-
-      // Parse the JSON
-      const parsedData: LLMResponse = JSON.parse(jsonString)
-
-      // Convert to our application's format
-      return parsedData.semesters.map((semester) => ({
-        id: crypto.randomUUID(), // Generate a unique ID
-        name: semester.name,
-        courses: semester.courses || [],
-        tnu: semester.tnu,
-        tcp: semester.tcp,
-        gpa: semester.gpa,
-        cgpa: semester.cgpa,
-      }))
-    } catch (apiError) {
-      console.error("Error making API request:", apiError)
-      throw new Error(`Failed to communicate with LLM service: ${apiError.message}`)
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`)
     }
+
+    const data = await response.json()
+
+    // Extract the LLM's response
+    const llmResponseText = data.choices[0].message.content
+
+    // Parse the JSON from the LLM response
+    // First, find the JSON object in the response (it might be surrounded by markdown code blocks)
+    const jsonMatch = llmResponseText.match(/```json\s*([\s\S]*?)\s*```/) ||
+      llmResponseText.match(/```\s*([\s\S]*?)\s*```/) || [null, llmResponseText]
+
+    const jsonString = jsonMatch[1] || llmResponseText
+
+    // Parse the JSON
+    const parsedData: LLMResponse = JSON.parse(jsonString)
+
+    // Convert to our application's format
+    return parsedData.semesters.map((semester) => ({
+      id: crypto.randomUUID(), // Generate a unique ID
+      name: semester.name,
+      courses: semester.courses || [],
+      tnu: semester.tnu,
+      tcp: semester.tcp,
+      gpa: semester.gpa,
+      cgpa: semester.cgpa,
+    }))
   } catch (error) {
     console.error("Error extracting data with LLM:", error)
     throw new Error("Failed to extract transcript data using AI. Please try again or use manual input.")

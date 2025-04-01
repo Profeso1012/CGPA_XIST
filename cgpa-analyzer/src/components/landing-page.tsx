@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { ChevronRight, Upload, PenLine, Calculator, ArrowRight, Info } from "lucide-react"
+import { ChevronRight, Upload, PenLine, Calculator, ChevronDown, ArrowRight, Info } from "lucide-react"
 import { useInView } from "react-intersection-observer"
 import Link from "next/link"
 
@@ -213,6 +213,15 @@ export default function LandingPage() {
               </p>
             </motion.div>
           </div>
+
+          <motion.div
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.5 }}
+          >
+            <ChevronDown className="h-8 w-8 animate-bounce" />
+          </motion.div>
         </div>
       </section>
 
